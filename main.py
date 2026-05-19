@@ -1,4 +1,4 @@
 import requests
 
-response =requests.get("https://jsonplaceholder.typicode.com/posts/1")
+response =requests.get("https://playground.learnqa.ru/api/hello")
 print(response.text)
