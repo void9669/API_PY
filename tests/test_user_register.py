@@ -7,11 +7,13 @@ from datetime import datetime
 url_reg = "https://playground.learnqa.ru/api/user/"
 
 class TestUserRegister(BaseCase):
-    def setup(self):
+    def setup_method(self):
+        print("\n>>> SETUP IS RUNNING <<<")
         basepart = "learnqa"
         domain = "example.com"
         randpart = datetime.now().strftime("%m%d%Y%H%M%S")
         self.email = f"{basepart}{randpart}@{domain}"
+        print(f">>> email set: {self.email}")
 
     def test_create_user_happy_path(self):
         data = {
