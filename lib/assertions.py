@@ -25,3 +25,12 @@ class Assertions:
     def assert_code_status(response: Response, expected_status_code):
         assert response.status_code == expected_status_code, \
             f"Unexp stat code! Exp: {expected_status_code}, Act: {response.status_code}"
+
+    @staticmethod    
+    def assert_json_has_no_key(response: Response, name):
+        try:
+            response_as_dict = response.json()
+        except json.JSONDecodeError:
+            assert False, f"Response isn't JSON, it's {response.text}"
+            
+        assert name not in response_as_dict, f"Response shouldn't have a key {name}, but it has!"
