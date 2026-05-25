@@ -9,6 +9,7 @@ url_login = "https://playground.learnqa.ru/api/user/login"
 class TestUserGet(BaseCase):
     def test_get_user_nauth(self):
         response = requests.get(url_get)
+
         Assertions.assert_json_has_key(response, "username")
         Assertions.assert_json_has_no_key(response, "email" )
         Assertions.assert_json_has_no_key(response, "firstName" )
@@ -31,4 +32,24 @@ class TestUserGet(BaseCase):
         )
         exp_fields = ["username","email","firstName", "lastName" ]
         Assertions.assert_json_has_keys(response2, exp_fields)
+
+    def test_get_user_auth_other_user(self):
+        data = {
+            'email': 'vinkotov@example.com',
+            'password': '1234'
+        }
+        response1 = requests.post(url_login, json=data)
+        auth_sid = self.get_cookie(response1, "auth_sid")
+        token = self.get_header(response1, "x-csrf-token")
+
+        response2 = requests.get(
+            "https://playground.learnqa.ru/api/user/1",
+            headers={"x-csrf-token": token},
+            cookies={"auth_sid": auth_sid}
+        )
+
+        Assertions.assert_json_has_key(response2, "username")
+        Assertions.assert_json_has_no_key(response2, "email")
+        Assertions.assert_json_has_no_key(response2, "firstName")
+        Assertions.assert_json_has_no_key(response2, "lastName")
 
