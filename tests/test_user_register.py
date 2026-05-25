@@ -18,10 +18,10 @@ class TestUserRegister(BaseCase):
             'username': 'learnqa',
             'firstName': 'learnqa',
             'lastName': 'learnqa',
-            'email': email
+            'email': self.email
         }
         response = requests.post(url_reg, json=data)
-        assert response.status_code == 200, f"Unexp stat code {response.status_code}"
+        Assertions.assert_code_status(response, 200)
         Assertions.assert_json_has_key(response, "id")
 
 
@@ -35,7 +35,7 @@ class TestUserRegister(BaseCase):
             'email': email
         }
         response = requests.post(url_reg, json=data)
-        assert response.status_code == 400, f"Unexp st code {response.status_code}"
+        Assertions.assert_code_status(response, 400)
         assert response.content.decode("utf-8") == f"Users with email '{email}' already exists", f"Unexp content {response.content}"
     
     def test_create_user_with_invalid_email(self):
