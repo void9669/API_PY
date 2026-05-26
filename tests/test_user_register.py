@@ -2,40 +2,25 @@ import requests
 import pytest
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
-from datetime import datetime
 
 url_reg = "https://playground.learnqa.ru/api/user/"
 
 class TestUserRegister(BaseCase):
-    def setup_method(self):
-        basepart = "learnqa"
-        domain = "example.com"
-        randpart = datetime.now().strftime("%m%d%Y%H%M%S")
-        self.email = f"{basepart}{randpart}@{domain}"
 
     def test_create_user_happy_path(self):
-        data = {
-            'password': '123',
-            'username': 'learnqa',
-            'firstName': 'learnqa',
-            'lastName': 'learnqa',
-            'email': self.email
-        }
+        data = self.prepare_reg_user_data()
+
         response = requests.post(url_reg, json=data)
+        
         Assertions.assert_code_status(response, 200)
         Assertions.assert_json_has_key(response, "id")
 
-
     def test_create_user_with_ex_email(self):
         email = 'vinkotov@example.com'
-        data = {
-            'password': '123',
-            'username': 'learnqa',
-            'firstName': 'learnqa',
-            'lastName': 'learnqa',
-            'email': email
-        }
+        data = self.prepare_reg_user_data(email)
+
         response = requests.post(url_reg, json=data)
+        
         Assertions.assert_code_status(response, 400)
         assert response.content.decode("utf-8") == f"Users with email '{email}' already exists", f"Unexp content {response.content}"
     
