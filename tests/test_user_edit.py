@@ -199,7 +199,7 @@ class TestUserEdit(BaseCase):
             response3,
             "error",
             expected_error,
-            "Expected error message when editing another user's data"
+            "Expected error message"
         )
 
     
