@@ -1,4 +1,5 @@
 import requests
+from lib.loggger import Logger
 
 class MyReq():
     @staticmethod
@@ -24,6 +25,8 @@ class MyReq():
         if cookies is None:
             cookies = {}
 
+        Logger.add_req(url, data, headers, cookies, method)
+
         if method == 'GET':
             response = requests.get(url, params=data, headers=headers, cookies=cookies)
         elif method == 'POST':
@@ -34,5 +37,7 @@ class MyReq():
             response = requests.delete(url, json=data, headers=headers, cookies=cookies)
         else:
             raise Exception(f"Bad method '{method}'")
+
+        Logger.add_resp(response)
 
         return response
