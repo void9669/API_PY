@@ -1,17 +1,17 @@
 import requests
-from lib.loggger import Logger
+from lib.logger import Logger
 
 class MyReq():
     @staticmethod
     def get (url:str, data:dict=None, headers:dict=None, cookies:dict=None ):
         return MyReq._send(url, data, headers, cookies, 'GET')
-    
+    @staticmethod
     def post (url:str, data:dict=None, headers:dict=None, cookies:dict=None ):
         return MyReq._send(url, data, headers, cookies, 'POST')
-    
+    @staticmethod
     def put (url:str, data:dict=None, headers:dict=None, cookies:dict=None ):
         return MyReq._send(url, data, headers, cookies, 'PUT')
-    
+    @staticmethod
     def delete (url:str, data:dict=None, headers:dict=None, cookies:dict=None ):
         return MyReq._send(url, data, headers, cookies, 'DELETE')
 

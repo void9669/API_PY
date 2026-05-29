@@ -39,7 +39,7 @@ class TestUserEdit(BaseCase):
         new_name = "Pupa_lupa"
 
         response3 = MyReq.put(
-            f"https://playground.learnqa.ru/api/user/{user_id}", 
+            f"/api/user/{user_id}", 
             headers={"x-csrf-token" : token}, 
             cookies={"auth_sid":auth_sid},
             json={"firstName":new_name})
@@ -47,8 +47,8 @@ class TestUserEdit(BaseCase):
         Assertions.assert_code_status(response3, 200)
 
         #get
-        response4 = requests.get(
-            f"https://playground.learnqa.ru/api/user/{user_id}", 
+        response4 = MyReq.get(
+            f"/api/user/{user_id}", 
             headers={"x-csrf-token" : token}, 
             cookies={"auth_sid":auth_sid}
         )   
@@ -63,7 +63,7 @@ class TestUserEdit(BaseCase):
 
         #register
         register_data = self.prepare_reg_user_data()
-        response1 = requests.post(url_get, json=register_data)
+        response1 = MyReq.post(url_get, json=register_data)
 
         Assertions.assert_code_status(response1, 200)
         Assertions.assert_json_has_key(response1, "id")
@@ -79,7 +79,7 @@ class TestUserEdit(BaseCase):
             'password' : password
         }
 
-        response2 = requests.post(url_login, json=login_data)
+        response2 = MyReq.post(url_login, json=login_data)
 
         Assertions.assert_code_status(response2, 200)
 
@@ -89,8 +89,8 @@ class TestUserEdit(BaseCase):
         #edit
         new_name = "Umpa_Lumpa"
 
-        response3 = requests.put(
-            f"https://playground.learnqa.ru/api/user/{user_id}",
+        response3 = MyReq.put(
+            f"/api/user/{user_id}",
             json={"firstName":new_name})
 
         Assertions.assert_code_status(response3, 400)
@@ -99,7 +99,7 @@ class TestUserEdit(BaseCase):
 
         #register1
         register_data = self.prepare_reg_user_data()
-        response1 = requests.post(url_get, json=register_data)
+        response1 = MyReq.post(url_get, json=register_data)
 
         Assertions.assert_code_status(response1, 200)
         Assertions.assert_json_has_key(response1, "id")
@@ -111,7 +111,7 @@ class TestUserEdit(BaseCase):
 
         #register2
         register_data = self.prepare_reg_user_data()
-        response2 = requests.post(url_get, json=register_data)
+        response2 = MyReq.post(url_get, json=register_data)
 
         Assertions.assert_code_status(response2, 200)
         Assertions.assert_json_has_key(response2, "id")
@@ -127,7 +127,7 @@ class TestUserEdit(BaseCase):
             'password' : password
         }
 
-        response3 = requests.post(url_login, json=login_data)
+        response3 = MyReq.post(url_login, json=login_data)
 
         Assertions.assert_code_status(response3, 200)
 
@@ -137,8 +137,8 @@ class TestUserEdit(BaseCase):
         #edit
         new_name = "Pupa_lupa"
 
-        response4 = requests.put(
-            f"https://playground.learnqa.ru/api/user/{user_id2}", 
+        response4 = MyReq.put(
+            f"/api/user/{user_id2}", 
             headers={"x-csrf-token" : token}, 
             cookies={"auth_sid":auth_sid},
             json={"firstName":new_name})
@@ -164,7 +164,7 @@ class TestUserEdit(BaseCase):
         
         #register
         register_data = self.prepare_reg_user_data()
-        response1 = requests.post(url_get, json=register_data)
+        response1 = MyReq.post(url_get, json=register_data)
 
         Assertions.assert_code_status(response1, 200)
         Assertions.assert_json_has_key(response1, "id")
@@ -180,7 +180,7 @@ class TestUserEdit(BaseCase):
             'password' : password
         }
 
-        response2 = requests.post(url_login, json=login_data)
+        response2 = MyReq.post(url_login, json=login_data)
 
         Assertions.assert_code_status(response2, 200)
 
@@ -188,8 +188,8 @@ class TestUserEdit(BaseCase):
         token = self.get_header(response2, "x-csrf-token")
 
         #edit
-        response3 = requests.put(
-            f"https://playground.learnqa.ru/api/user/{user_id}", 
+        response3 = MyReq.put(
+            f"/api/user/{user_id}", 
             headers={"x-csrf-token" : token}, 
             cookies={"auth_sid":auth_sid},
             json={field: invalid_value})

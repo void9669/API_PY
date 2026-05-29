@@ -24,7 +24,7 @@ class Logger:
         data_to_add += f"cookies: {cookies}\n"
         data_to_add += "\n"
 
-    cls._write_log(data_to_add)
+        cls._write_log(data_to_add)
 
     @classmethod
     def add_resp(cls, response: Response):
