@@ -3,8 +3,8 @@ from lib.logger import Logger
 
 class MyReq():
     @staticmethod
-    def get (url:str, json:dict=None, headers:dict=None, cookies:dict=None ):
-        return MyReq._send(url, json, headers, cookies, 'GET')
+    def get (url:str, params:dict=None, headers:dict=None, cookies:dict=None ):
+        return MyReq._send(url, params, headers, cookies, 'GET')
     @staticmethod
     def post (url:str, json:dict=None, headers:dict=None, cookies:dict=None ):
         return MyReq._send(url, json, headers, cookies, 'POST')
