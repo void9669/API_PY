@@ -27,7 +27,7 @@ class TestUserGet(BaseCase):
         token = self.get_header(response1, "x-csrf-token" )
         user_id_auth = self.get_json_value(response1, "user_id")
 
-        response2 = MyReq.get(f"https://playground.learnqa.ru/api/user/{user_id_auth}", 
+        response2 = MyReq.get(f"/api/user/{user_id_auth}", 
         headers = {"x-csrf-token" : token}, 
         cookies = {"auth_sid" : auth_sid}
         )

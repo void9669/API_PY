@@ -3,17 +3,17 @@ from lib.logger import Logger
 
 class MyReq():
     @staticmethod
-    def get (url:str, data:dict=None, headers:dict=None, cookies:dict=None ):
-        return MyReq._send(url, data, headers, cookies, 'GET')
+    def get (url:str, json:dict=None, headers:dict=None, cookies:dict=None ):
+        return MyReq._send(url, json, headers, cookies, 'GET')
     @staticmethod
-    def post (url:str, data:dict=None, headers:dict=None, cookies:dict=None ):
-        return MyReq._send(url, data, headers, cookies, 'POST')
+    def post (url:str, json:dict=None, headers:dict=None, cookies:dict=None ):
+        return MyReq._send(url, json, headers, cookies, 'POST')
     @staticmethod
-    def put (url:str, data:dict=None, headers:dict=None, cookies:dict=None ):
-        return MyReq._send(url, data, headers, cookies, 'PUT')
+    def put (url:str, json:dict=None, headers:dict=None, cookies:dict=None ):
+        return MyReq._send(url, json, headers, cookies, 'PUT')
     @staticmethod
-    def delete (url:str, data:dict=None, headers:dict=None, cookies:dict=None ):
-        return MyReq._send(url, data, headers, cookies, 'DELETE')
+    def delete (url:str, json:dict=None, headers:dict=None, cookies:dict=None ):
+        return MyReq._send(url, json, headers, cookies, 'DELETE')
 
     @staticmethod
     def _send(url:str, data:dict, headers:dict, cookies:dict, method: str ):
