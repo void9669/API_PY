@@ -2,15 +2,16 @@ import requests
 import pytest
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
+from lib.my_req import MyReq
 
-url_reg = "https://playground.learnqa.ru/api/user/"
+url_reg = "/api/user/"
 
 class TestUserRegister(BaseCase):
 
     def test_create_user_happy_path(self):
         data = self.prepare_reg_user_data()
 
-        response = requests.post(url_reg, json=data)
+        response = MyReq.post(url_reg, json=data)
         
         Assertions.assert_code_status(response, 200)
         Assertions.assert_json_has_key(response, "id")
@@ -19,7 +20,7 @@ class TestUserRegister(BaseCase):
         email = 'vinkotov@example.com'
         data = self.prepare_reg_user_data(email)
 
-        response = requests.post(url_reg, json=data)
+        response = MyReq.post(url_reg, json=data)
         
         Assertions.assert_code_status(response, 400)
         assert response.content.decode("utf-8") == f"Users with email '{email}' already exists", f"Unexp content {response.content}"
@@ -33,7 +34,7 @@ class TestUserRegister(BaseCase):
             'lastName': 'learnqa',
             'email': email
         }
-        response = requests.post(url_reg, json=data)
+        response = MyReq.post(url_reg, json=data)
         assert response.status_code == 400, f"Unexp st code {response.status_code}"
         assert response.content.decode("utf-8") == f"Invalid email format"
     
@@ -56,6 +57,6 @@ class TestUserRegister(BaseCase):
             'email': 'ass@example.com'
         }
         del data[missing_field]
-        response = requests.post(url_reg, json=data)
+        response = MyReq.post(url_reg, json=data)
         assert response.status_code == 400, f"Unexp st code {response.status_code}"
         assert response.content.decode("utf-8") == f"The following required params are missed: {missing_field}"

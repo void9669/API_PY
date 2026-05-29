@@ -2,16 +2,17 @@ import requests
 import pytest
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
+from lib.my_req import MyReq
 
-url_get = "https://playground.learnqa.ru/api/user/"
-url_login = "https://playground.learnqa.ru/api/user/login"
+url_get = "/api/user/"
+url_login = "/api/user/login"
 
 class TestUserEdit(BaseCase):
     def test_edit_user_authorised(self):
 
         #register
         register_data = self.prepare_reg_user_data()
-        response1 = requests.post(url_get, json=register_data)
+        response1 = MyReq.post(url_get, json=register_data)
 
         Assertions.assert_code_status(response1, 200)
         Assertions.assert_json_has_key(response1, "id")
@@ -27,7 +28,7 @@ class TestUserEdit(BaseCase):
             'password' : password
         }
 
-        response2 = requests.post(url_login, json=login_data)
+        response2 = MyReq.post(url_login, json=login_data)
 
         Assertions.assert_code_status(response2, 200)
 
@@ -37,7 +38,7 @@ class TestUserEdit(BaseCase):
         #edit
         new_name = "Pupa_lupa"
 
-        response3 = requests.put(
+        response3 = MyReq.put(
             f"https://playground.learnqa.ru/api/user/{user_id}", 
             headers={"x-csrf-token" : token}, 
             cookies={"auth_sid":auth_sid},
