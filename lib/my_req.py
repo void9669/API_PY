@@ -1,19 +1,24 @@
 import requests
 from lib.logger import Logger
+import allure 
 
 class MyReq():
     @staticmethod
     def get (url:str, params:dict=None, headers:dict=None, cookies:dict=None ):
-        return MyReq._send(url, params, headers, cookies, 'GET')
+        with allure.step(f"GET req to '{url}'"):
+            return MyReq._send(url, params, headers, cookies, 'GET')
     @staticmethod
     def post (url:str, json:dict=None, headers:dict=None, cookies:dict=None ):
-        return MyReq._send(url, json, headers, cookies, 'POST')
+        with allure.step(f"POST req to '{url}'"):
+            return MyReq._send(url, json, headers, cookies, 'POST')
     @staticmethod
     def put (url:str, json:dict=None, headers:dict=None, cookies:dict=None ):
-        return MyReq._send(url, json, headers, cookies, 'PUT')
+        with allure.step(f"PUT req to '{url}'"):
+            return MyReq._send(url, json, headers, cookies, 'PUT')
     @staticmethod
     def delete (url:str, json:dict=None, headers:dict=None, cookies:dict=None ):
-        return MyReq._send(url, json, headers, cookies, 'DELETE')
+        with allure.step(f"DELETE req to '{url}'"):
+            return MyReq._send(url, json, headers, cookies, 'DELETE')
 
     @staticmethod
     def _send(url:str, data:dict, headers:dict, cookies:dict, method: str ):

@@ -3,11 +3,14 @@ import pytest
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
 from lib.my_req import MyReq
+import allure
 
 url_reg = "/api/user/"
 
+@allure.epic("Registration Cases")
 class TestUserRegister(BaseCase):
-
+    
+    @allure.description("Register happy path")
     def test_create_user_happy_path(self):
         data = self.prepare_reg_user_data()
 
@@ -15,7 +18,8 @@ class TestUserRegister(BaseCase):
         
         Assertions.assert_code_status(response, 200)
         Assertions.assert_json_has_key(response, "id")
-
+    
+    @allure.description("Negative case with existed email")
     def test_create_user_with_ex_email(self):
         email = 'vinkotov@example.com'
         data = self.prepare_reg_user_data(email)
@@ -25,6 +29,7 @@ class TestUserRegister(BaseCase):
         Assertions.assert_code_status(response, 400)
         assert response.content.decode("utf-8") == f"Users with email '{email}' already exists", f"Unexp content {response.content}"
     
+    @allure.description("Negative case with invalid email")
     def test_create_user_with_invalid_email(self):
         email = 'vinkotov.example.com'
         data = {
@@ -38,6 +43,7 @@ class TestUserRegister(BaseCase):
         assert response.status_code == 400, f"Unexp st code {response.status_code}"
         assert response.content.decode("utf-8") == f"Invalid email format"
     
+    @allure.description("Negative cases with missing fields in payload")
     @pytest.mark.parametrize('missing_field', [
         'password',
         'username',

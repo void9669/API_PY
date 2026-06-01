@@ -16,3 +16,6 @@ __pycache__/
 
 #logs
 logs/*
+
+#allure
+test_results/
