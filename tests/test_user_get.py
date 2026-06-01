@@ -7,7 +7,9 @@ from lib.my_req import MyReq
 url_get = "/api/user/2"
 url_login = "/api/user/login"
 
+@allure.epic("GET user info Cases")
 class TestUserGet(BaseCase):
+    @allure.description("Неавторизованный пользователь")
     def test_get_user_nauth(self):
         response = MyReq.get(url_get)
 
@@ -15,7 +17,8 @@ class TestUserGet(BaseCase):
         Assertions.assert_json_has_no_key(response, "email" )
         Assertions.assert_json_has_no_key(response, "firstName" )
         Assertions.assert_json_has_no_key(response, "lastName" )
-
+    
+    @allure.description("Авторизованный пользователь")
     def test_get_user_auth_same_user(self):
         data = {
             'email':'vinkotov@example.com',
@@ -33,7 +36,8 @@ class TestUserGet(BaseCase):
         )
         exp_fields = ["username","email","firstName", "lastName" ]
         Assertions.assert_json_has_keys(response2, exp_fields)
-
+    
+    @allure.description("Один пользователь запрашивает данные другого")
     def test_get_user_auth_other_user(self):
         data = {
             'email': 'vinkotov@example.com',

@@ -7,7 +7,10 @@ from lib.my_req import MyReq
 url_get = "/api/user/"
 url_login = "/api/user/login"
 
+@allure.epic("Тесты на изменение данных пользователя")
 class TestUserEdit(BaseCase):
+
+    @allure.description("Изменение данных авторизованным пользователем")
     def test_edit_user_authorised(self):
 
         #register
@@ -59,6 +62,8 @@ class TestUserEdit(BaseCase):
             new_name,
             "Wrong data after edit!"
         )
+    
+    @allure.description("Изменение данных неавторизованным пользователем")    
     def test_edit_user_unauthorised(self):
 
         #register
@@ -95,6 +100,7 @@ class TestUserEdit(BaseCase):
 
         Assertions.assert_code_status(response3, 400)
 
+    @allure.description("Изменение данных другого пользователя")
     def test_cannot_edit_another_users_data(self):
 
         #register1
@@ -152,6 +158,7 @@ class TestUserEdit(BaseCase):
             "Expected error message when editing another user's data"
         )
 
+    @allure.description("Изменение данных с невалидными данными")
     @pytest.mark.parametrize(
         "field, invalid_value, expected_error", 
     [

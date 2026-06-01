@@ -8,7 +8,10 @@ url_login = "/api/user/login"
 url_auth = "/api/user/auth"
 url_get = "/api/user/"
 
+@allure.epic("Тесты на удаление данных пользователя")
 class TestUserDelete(BaseCase):
+
+    @allure.description("Удаление конкретного пользователя")
     def test_delete_user_id_2(self):
         #login
         login_data = {
@@ -48,6 +51,7 @@ class TestUserDelete(BaseCase):
             "Assertion error!"
         )
 
+    @allure.description("Регистрация, удаление того-же пользователя")
     def test_user_delete_positive(self):
 
         #register
@@ -99,7 +103,8 @@ class TestUserDelete(BaseCase):
 
         Assertions.assert_code_status(response4, 404)
         assert response4.text == "User not found"
-
+    
+    @allure.description("Регистрация, удаление другого пользователя")
     def test_cannot_delete_another_users(self):
 
         #register
