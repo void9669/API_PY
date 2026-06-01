@@ -3,6 +3,7 @@ import pytest
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
 from lib.my_req import MyReq
+import allure
 
 url_get = "/api/user/"
 url_login = "/api/user/login"
